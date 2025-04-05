@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     .map(line => {
                         const [title, youtubeUrl, pdfUrl] = line.split(', ');
                         const videoId = youtubeUrl.split('v=')[1] || youtubeUrl.split('/').pop();
-                        return { title, videoId, pdfUrl: (!pdfUrl || pdfUrl === 'none' || pdfUrl.trim() === '') ? null : pdfUrl };
+                        const cleanPdfUrl = pdfUrl ? pdfUrl.trim().toLowerCase() : '';
+                        return { title, videoId, pdfUrl: (cleanPdfUrl === 'none' || cleanPdfUrl === 'no_pdf' || cleanPdfUrl === '') ? null : pdfUrl };
                     });
 
                 // Populate sidebar with lesson names
